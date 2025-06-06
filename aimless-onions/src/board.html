@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message Board</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #messages {
+            list-style-type: none;
+            padding: 0;
+        }
+        .message {
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Aimless Onions Demo</h1>
+    Onions that reach this message board will be posted below.
+    Valid messages are %%MESSAGES%%.
+    <ul id="messages"></ul>
+
+    <script>
+        function fetchMessages() {
+            fetch('/messages')
+            .then(response => response.json())
+            .then(messages => {
+                const messagesList = document.getElementById('messages');
+                messagesList.innerHTML = '';
+                messages.forEach(message => {
+                    const listItem = document.createElement('li');
+                    listItem.className = 'message';
+                    listItem.textContent = message.content;
+                    messagesList.appendChild(listItem);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching messages:', error);
+            });
+        }
+
+        // Initial fetch
+        fetchMessages();
+
+        // Refresh every 1 second
+        setInterval(fetchMessages, 1000);
+    </script>
+</body>
+</html>
