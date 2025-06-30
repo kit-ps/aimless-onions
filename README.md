@@ -44,6 +44,77 @@ determine the amount of data Tor downloads when bootstrapping a new instance.
 * (optional) `tor`, `tcpdump`, `iproute2` to measure the data needed for a
   consensus download
 
+### Versions
+
+For future reproducibility, we list the versions of the tools we've used here.
+Other versions should work as well, as long as they are backwards compatible:
+
+```
+% python --version
+Python 3.13.3
+
+% jupyter --version
+Selected Jupyter core packages...
+IPython          : 8.36.0
+ipykernel        : 6.29.3
+ipywidgets       : 8.1.5
+jupyter_client   : 8.6.1
+jupyter_core     : 5.7.2
+jupyter_server   : 2.15.0
+jupyterlab       : 4.4.0
+nbclient         : 0.10.2
+nbconvert        : 7.16.4
+nbformat         : 5.9.2
+notebook         : 7.4.0
+qtconsole        : not installed
+traitlets        : 5.14.3
+
+% cargo --version
+cargo 1.88.0-nightly (0e93c5bf6 2025-04-05)
+
+% curl --version
+curl 8.11.1 (x86_64-redhat-linux-gnu) libcurl/8.11.1 OpenSSL/3.2.4 zlib/1.3.1.zlib-ng brotli/1.1.0 libidn2/2.3.8 libpsl/0.21.5 libssh/0.11.2/openssl/zlib nghttp2/1.64.0 OpenLDAP/2.6.9
+Release-Date: 2024-12-11
+Protocols: dict file ftp ftps gopher gophers http https imap imaps ipfs ipns ldap ldaps mqtt pop3 pop3s rtsp scp sftp smb smbs smtp smtps telnet tftp ws wss
+Features: alt-svc AsynchDNS brotli GSS-API HSTS HTTP2 HTTPS-proxy IDN IPv6 Kerberos Largefile libz NTLM PSL SPNEGO SSL threadsafe TLS-SRP UnixSockets
+
+% wget --version
+GNU Wget2 2.2.0 - multithreaded metalink/file/website downloader
+
++digest +https +ssl/gnutls +ipv6 +iri +large-file +nls -ntlm -opie +psl -hsts
++iconv +idn2 +zlib -lzma +brotlidec +zstd -bzip2 -lzip +http2 +gpgme
+
+Copyright (C) 2012-2015 Tim Ruehsen
+Copyright (C) 2015-2024 Free Software Foundation, Inc.
+
+License GPLv3+: GNU GPL version 3 or later
+<http://www.gnu.org/licenses/gpl.html>.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Please send bug reports and questions to <bug-wget@gnu.org>.
+
+% zstd --version
+*** Zstandard CLI (64-bit) v1.5.7, by Yann Collet ***
+
+% tor --version
+Tor version 0.4.8.16.
+This build of Tor is covered by the GNU General Public License (https://www.gnu.org/licenses/gpl-3.0.en.html)
+Tor is running on Linux with Libevent 2.1.12-stable, OpenSSL 3.2.4, Zlib 1.3.1.zlib-ng, Liblzma 5.8.1, Libzstd 1.5.7 and Glibc 2.41 as libc.
+Tor compiled with GCC version 15.0.1
+
+% tcpdump --version
+tcpdump version 4.99.5
+libpcap version 1.10.5 (with TPACKET_V3)
+OpenSSL 3.2.4 11 Feb 2025
+64-bit build, 64-bit time_t
+
+% ip -V
+ip utility, iproute2-6.12.0, libbpf 1.5.0
+```
+
+### Setup
+
 To set up (on a Debian system):
 
 ```bash
@@ -168,6 +239,10 @@ the requirements are installed beforehand.
 We provide two methods: One quick method which keeps all intermediate artifacts
 (raw data) in the container and only extracts the graphs, and one method which
 keeps the raw data on the host system.
+
+> [!note]
+> If you run with SELinux enabled (default on Fedora), you must append a ":Z"
+> after the mount paths (-v "...:Z").
 
 ### Container-to-Notebook
 
