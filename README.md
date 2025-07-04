@@ -254,6 +254,10 @@ graphs, and one method which keeps the raw data on the host system.
 > If you run with SELinux enabled (default on Fedora), you must append a ":Z"
 > after the mount paths (-v "...:Z").
 
+> [!note]
+> If you cannot access the Jupyter notebook inside the container, try running
+> podman with `--network=host`
+
 ### Container-to-Notebook
 
 To run the benchmarks and start a Jupyter notebook to generate the graphs, you
