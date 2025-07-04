@@ -37,6 +37,7 @@ determine the amount of data Tor downloads when bootstrapping a new instance.
   * Tested on a laptop with a x64 CPU, 16 GiB of RAM, 3 GiB of storage
 * A Linux system
   * Tested on Debian 12 and Fedora 42
+* (optional) `podman`/`docker` to use our container
 * Python with `matplotlib` and `jupyter`
 * Rust nightly
 * `curl`, `wget`
@@ -50,6 +51,9 @@ For future reproducibility, we list the versions of the tools we've used here.
 Other versions should work as well, as long as they are backwards compatible:
 
 ```
+% podman --version
+podman version 5.5.2
+
 % python --version
 Python 3.13.3
 
@@ -134,7 +138,9 @@ pip install -r requirements.txt
 
 ## Detailed walkthrough
 
-(Note: A script that does everything is included and referenced further below)
+(Note: The script `scripts/benches.sh` can be used to run all steps
+automatically. It is referenced further below, in the section about the
+containerized setup.)
 
 1. (~1 sec) Download a recent Tor and Nym consensus:
 
@@ -236,9 +242,13 @@ inside the container. It takes around **12 hours** and produces **1.5 GiB** of
 data. It can also be used outside of the container, but you must ensure that
 the requirements are installed beforehand.
 
-We provide two methods: One quick method which keeps all intermediate artifacts
-(raw data) in the container and only extracts the graphs, and one method which
-keeps the raw data on the host system.
+If you the script outside of a container, simply run it and it should drop you
+to the Jupyter notebook for graph generation. You can then proceed to run the
+cells to generate our graphs.
+
+For docker, we provide two methods: One quick method which keeps all
+intermediate artifacts (raw data) in the container and only extracts the
+graphs, and one method which keeps the raw data on the host system.
 
 > [!note]
 > If you run with SELinux enabled (default on Fedora), you must append a ":Z"
